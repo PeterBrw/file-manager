@@ -9,13 +9,17 @@ class ListDirectory extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { data: data, replica: data };
+        this.state = { data: data, replica: data, prent: [] };
     }
 
     move = curr => {
-        this.setState({ replica: curr.children});
+        this.setState({ replica: curr.children, parent: [...this.state.parent, curr.id]});
     };
     
+    back = () => {
+        this.state.parent.length - 1;
+    }
+
     render() {
         let { replica, data } = this.state;
         return (

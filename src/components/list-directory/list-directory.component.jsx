@@ -9,19 +9,29 @@ class ListDirectory extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { data: data, replica: data, prent: [] };
+        this.state = { data: data, replica: data, parent: [] };
     }
 
     move = curr => {
-        this.setState({ replica: curr.children, parent: [...this.state.parent, curr.id]});
+        this.setState({
+            replica: curr.children,
+            parent: [...this.state.parent, curr.id]
+        });
     };
-    
+
     back = () => {
-        this.state.parent.length - 1;
-    }
+        this.setState({
+            replica: findType(
+                this.state.data,
+                this.state.parent[this.state.parent.length - 1]
+            ),
+            parent: this.state.parent.pop()
+        });
+    };
 
     render() {
-        let { replica, data } = this.state;
+        let { replica, data, parent } = this.state;
+        let state = this.state;
         return (
             <div className="list-directory">
                 {replica.map(item => (
@@ -31,7 +41,9 @@ class ListDirectory extends Component {
                         type={item.type}
                         move={this.move.bind(null, item)}
                         data={data}
-                        id={item.id}
+                        parent={parent}
+                        back={this.back.bind(null, item)}
+                        state={state}
                     />
                 ))}
             </div>
@@ -41,11 +53,10 @@ class ListDirectory extends Component {
 
 export default ListDirectory;
 
-
 function findType(col, id) {
     for (let i = 0; i < col.length; i++) {
         if (col[i].id === id) {
-            return col[i];
+            return col;
         }
 
         if (col[i].children.length > 0) {

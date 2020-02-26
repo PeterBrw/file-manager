@@ -45,10 +45,10 @@ var data = [
     }
 ];
 
-function findType(col, id) {
+function findType1(col, id) {
     for (let i = 0; i < col.length; i++) {
         if (col[i].id === id) {
-            return col[i];
+            return col;
         }
 
         if (col[i].children.length > 0) {
@@ -62,4 +62,26 @@ function findType(col, id) {
     return null;
 }
 
-console.log(findType(data, 22));
+function findType(col, initialId) {
+    let result;
+    col.forEach(e => {
+        if (e.id === initialId) {
+            result = data;
+        }
+    });
+    let i = 0;
+    while (i < col.length) {
+        col[i].children.forEach(e => {
+            if (e.id === initialId) {
+                result = col[i];
+            }
+        });
+        if (result === undefined) {
+            result = findType(col[i].children, initialId);
+        }
+        i++;
+    }
+    return result;
+}
+
+console.log(findType(data, 11));

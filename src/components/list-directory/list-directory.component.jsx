@@ -1,51 +1,49 @@
 import React, { Component } from "react";
 import "./list-directory.styles.css";
 
-import data from "../../data";
+import originalData from "../../data";
 
 import { Directory } from "../directory/directory.component";
+import BackButton from "../back-button/back-button.component";
 
 class ListDirectory extends Component {
     constructor(props) {
         super(props);
-
-        this.state = { data: data, replica: data, parent: [] };
+        this.state = { data: originalData, path: ["root"] };
     }
 
-    move = curr => {
+    onBackClick = () => {
+        const { path } = this.state;
+        path.pop();
+        console.log(path);
         this.setState({
-            replica: curr.children,
-            parent: [...this.state.parent, curr.id]
+            data: returnChildren(originalData, path[path.length - 1]),
+            path
         });
     };
 
-    back = () => {
+    onClick = id => {
+        console.log(id);
+        const { path } = this.state;
         this.setState({
-            replica: findType(
-                this.state.data,
-                this.state.parent[this.state.parent.length - 1]
-            )
-            // parent: this.state.parent.pop()
+            data: returnChildren(originalData, id),
+            path: [...path, id]
         });
-        console.log(this.state.parent);
-        this.state.parent.pop();
     };
 
     render() {
-        let { replica, data, parent } = this.state;
-        let state = this.state;
+        let { data, path } = this.state;
+
+        console.log();
         return (
             <div className="list-directory">
-                {replica.map(item => (
+                {path.length > 1 ? <BackButton onClick={this.onBackClick} /> : null}
+                {data.map(item => (
                     <Directory
                         key={item.id}
-                        name={item.name}
-                        type={item.type}
-                        move={this.move.bind(null, item)}
-                        data={data}
-                        parent={parent}
-                        back={this.back.bind(null, item)}
-                        state={state}
+                        onClick={this.onClick}
+                        {...item}
+                        path={path}
                     />
                 ))}
             </div>
@@ -55,14 +53,18 @@ class ListDirectory extends Component {
 
 export default ListDirectory;
 
-function findType(col, id) {
-    for (let i = 0; i < col.length; i++) {
-        if (col[i].id === id) {
-            return col;
+const returnChildren = (data, id) => {
+    if (id === "root" || id === null) {
+        return data;
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].id === id) {
+            return data[i].children;
         }
 
-        if (col[i].children.length > 0) {
-            let found = findType(col[i].children, id);
+        if (data[i].children.length > 0) {
+            let found = returnChildren(data[i].children, id);
             if (found) {
                 return found;
             }
@@ -70,6 +72,4 @@ function findType(col, id) {
     }
 
     return null;
-}
-
-//
+};

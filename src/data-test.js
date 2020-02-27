@@ -45,14 +45,14 @@ var data = [
     }
 ];
 
-function findType1(col, id) {
-    for (let i = 0; i < col.length; i++) {
-        if (col[i].id === id) {
-            return col;
+const returnChildren = (data, id) => {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].id === id) {
+            return data[i].children;
         }
 
-        if (col[i].children.length > 0) {
-            let found = findType(col[i].children, id);
+        if (data[i].children.length > 0) {
+            let found = returnChildren(data[i].children, id);
             if (found) {
                 return found;
             }
@@ -60,28 +60,6 @@ function findType1(col, id) {
     }
 
     return null;
-}
+};
 
-function findType(col, initialId) {
-    let result;
-    col.forEach(e => {
-        if (e.id === initialId) {
-            result = data;
-        }
-    });
-    let i = 0;
-    while (i < col.length) {
-        col[i].children.forEach(e => {
-            if (e.id === initialId) {
-                result = col[i];
-            }
-        });
-        if (result === undefined) {
-            result = findType(col[i].children, initialId);
-        }
-        i++;
-    }
-    return result;
-}
-
-console.log(findType(data, 11));
+console.log(returnChildren(data, 3));

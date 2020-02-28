@@ -14,8 +14,13 @@ class BackButton extends Component {
         return (
             <div>
                 {this.props.path.map(item => (
-                    <button key={id++} onClick={this.props.onBackClick}>
-                        {returnChildren(originalData, item)[0].name}
+                    <button
+                        key={id++}
+                        onClick={this.props.onBackClick.bind(null, item)}
+                    >
+                        {returnChildren(originalData, item).length > 0
+                            ? returnChildren(originalData, item)[0].name
+                            : null}
                     </button>
                 ))}
             </div>

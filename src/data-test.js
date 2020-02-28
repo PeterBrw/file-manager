@@ -45,39 +45,18 @@ var data = [
     }
 ];
 
-// const returnChildren = (data, id) => {
-//     if (id === "root" || id === null) {
-//         return data;
-//     }
-
-//     for (let i = 0; i < data.length; i++) {
-//         if (data[i].id === id) {
-//             return data[i].name;
-//         }
-
-//         if (data[i].children.length > 0) {
-//             let found = returnChildren(data[i].children, id);
-//             if (found) {
-//                 return found;
-//             }
-//         }
-//     }
-
-//     return null;
-// };
-
-const returnParentName = (data, id) => {
-    if (id === "root" || id === null || id === 2 || id === 3) {
-        return "root";
+const returnChildren = (data, id) => {
+    if (id === "root" || id === null) {
+        return data;
     }
 
     for (let i = 0; i < data.length; i++) {
         if (data[i].id === id) {
-            return data;
+            return data[i];
         }
 
         if (data[i].children.length > 0) {
-            let found = returnParentName(data[i].children, id);
+            let found = returnChildren(data[i].children, id);
             if (found) {
                 return found;
             }
@@ -87,4 +66,4 @@ const returnParentName = (data, id) => {
     return null;
 };
 
-console.log(writeParent(data, 31));
+console.log(returnChildren(data, 3).children);

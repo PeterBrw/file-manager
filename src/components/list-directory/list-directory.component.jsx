@@ -6,7 +6,7 @@ import originalData from "../../data";
 import { Directory } from "../directory/directory.component";
 import BackButton from "../back-button/back-button.component";
 
-import { returnChildren } from "../../return-children";
+import { returnChildren, getPathArray } from "../../return-children";
 
 class ListDirectory extends Component {
     constructor(props) {
@@ -14,17 +14,19 @@ class ListDirectory extends Component {
         this.state = {
             data: originalData,
             path: ["root"],
-            name: ""
+            name: "root"
         };
     }
 
-    onBackClick = () => {
+    onBackClick = pathInput => {
         const { path } = this.state;
-        path.pop();
-        this.setState({
-            data: returnChildren(originalData, path[path.length - 1]),
-            path
-        });
+        if (pathInput !== path[path.length - 1]) {
+            let newPath = path.slice(0, path.indexOf(pathInput) + 1);
+            this.setState({
+                data: returnChildren(originalData, newPath[newPath.length - 1]),
+                path: newPath
+            });
+        }
     };
 
     onClick = id => {
@@ -41,7 +43,7 @@ class ListDirectory extends Component {
 
         return (
             <div className="list-directory">
-                {path.length > 1 ? (
+                {path.length > 0 ? (
                     <BackButton onBackClick={this.onBackClick} path={path} />
                 ) : null}
                 {data.map(item => (

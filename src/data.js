@@ -4,7 +4,14 @@ var data = [
         name: "Desktop",
         type: "folder",
         children: [
-            { id: 11, name: "Child 1", type: "file", children: [] },
+            {
+                id: 11,
+                name: "Child 1",
+                type: "file",
+                children: [
+                    { id: 55, name: "Child 5", type: "file", children: [] }
+                ]
+            },
             { id: 12, name: "Child 2", type: "file", children: [] }
         ]
     },

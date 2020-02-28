@@ -1,7 +1,7 @@
 var data = [
     {
         id: 1,
-        name: "Parent 1",
+        name: "Desktop",
         type: "folder",
         children: [
             { id: 11, name: "Child 1", type: "file", children: [] },
@@ -10,7 +10,7 @@ var data = [
     },
     {
         id: 2,
-        name: "Parent 2",
+        name: "Downloads",
         type: "folder",
         children: [
             {
@@ -36,7 +36,7 @@ var data = [
     },
     {
         id: 3,
-        name: "Parent 3",
+        name: "Bin",
         type: "folder",
         children: [
             { id: 31, name: "Child 1", type: "file", children: [] },
@@ -45,14 +45,39 @@ var data = [
     }
 ];
 
-const returnChildren = (data, id) => {
+// const returnChildren = (data, id) => {
+//     if (id === "root" || id === null) {
+//         return data;
+//     }
+
+//     for (let i = 0; i < data.length; i++) {
+//         if (data[i].id === id) {
+//             return data[i].name;
+//         }
+
+//         if (data[i].children.length > 0) {
+//             let found = returnChildren(data[i].children, id);
+//             if (found) {
+//                 return found;
+//             }
+//         }
+//     }
+
+//     return null;
+// };
+
+const returnParentName = (data, id) => {
+    if (id === "root" || id === null || id === 2 || id === 3) {
+        return "root";
+    }
+
     for (let i = 0; i < data.length; i++) {
         if (data[i].id === id) {
-            return data[i].children;
+            return data;
         }
 
         if (data[i].children.length > 0) {
-            let found = returnChildren(data[i].children, id);
+            let found = returnParentName(data[i].children, id);
             if (found) {
                 return found;
             }
@@ -62,4 +87,4 @@ const returnChildren = (data, id) => {
     return null;
 };
 
-console.log(returnChildren(data, 3));
+console.log(writeParent(data, 31));

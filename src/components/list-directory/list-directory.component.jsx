@@ -6,16 +6,21 @@ import originalData from "../../data";
 import { Directory } from "../directory/directory.component";
 import BackButton from "../back-button/back-button.component";
 
+import { returnChildren } from "../../return-children";
+
 class ListDirectory extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: originalData, path: ["root"] };
+        this.state = {
+            data: originalData,
+            path: ["root"],
+            name: ""
+        };
     }
 
     onBackClick = () => {
         const { path } = this.state;
         path.pop();
-        console.log(path);
         this.setState({
             data: returnChildren(originalData, path[path.length - 1]),
             path
@@ -34,10 +39,11 @@ class ListDirectory extends Component {
     render() {
         let { data, path } = this.state;
 
-        console.log();
         return (
             <div className="list-directory">
-                {path.length > 1 ? <BackButton onClick={this.onBackClick} /> : null}
+                {path.length > 1 ? (
+                    <BackButton onBackClick={this.onBackClick} path={path} />
+                ) : null}
                 {data.map(item => (
                     <Directory
                         key={item.id}
@@ -52,24 +58,3 @@ class ListDirectory extends Component {
 }
 
 export default ListDirectory;
-
-const returnChildren = (data, id) => {
-    if (id === "root" || id === null) {
-        return data;
-    }
-
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].id === id) {
-            return data[i].children;
-        }
-
-        if (data[i].children.length > 0) {
-            let found = returnChildren(data[i].children, id);
-            if (found) {
-                return found;
-            }
-        }
-    }
-
-    return null;
-};

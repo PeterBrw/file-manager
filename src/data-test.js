@@ -66,4 +66,4 @@ const returnChildren = (data, id) => {
     return null;
 };
 
-console.log(returnChildren(data, 3).children);
+console.log(returnChildren(data, 20).name);

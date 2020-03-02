@@ -18,3 +18,24 @@ export const returnChildren = (data, id) => {
 
     return null;
 };
+
+export const returnName = (data, id) => {
+    if (id === "root" || id === null) {
+        return "root";
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].id === id) {
+            return data[i].name;
+        }
+
+        if (data[i].children.length > 0) {
+            let found = returnName(data[i].children, id);
+            if (found) {
+                return found;
+            }
+        }
+    }
+
+    return null;
+};

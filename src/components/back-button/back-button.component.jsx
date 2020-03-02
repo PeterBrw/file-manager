@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import "./back-button.styles.css";
 
-import { returnChildren } from "../../return-children";
+import { returnChildren, returnName } from "../../return-children";
 import originalData from "../../data";
 
 let id = 0;
 
 class BackButton extends Component {
     render() {
-        let { path } = this.props;
-        let newPath = [...path];
-        // newPath();
+        let { path, name } = this.props;
+
+        console.log(path[path.length - 1]);
         return (
             <div>
                 {this.props.path.map(item => (
@@ -18,9 +18,7 @@ class BackButton extends Component {
                         key={id++}
                         onClick={this.props.onBackClick.bind(null, item)}
                     >
-                        {returnChildren(originalData, item).length > 0
-                            ? returnChildren(originalData, item)[0].name
-                            : null}
+                        {returnName(originalData, path[path.length - 1])}
                     </button>
                 ))}
             </div>

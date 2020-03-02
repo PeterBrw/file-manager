@@ -9,18 +9,19 @@ let id = 0;
 class BackButton extends Component {
     render() {
         let { path, name } = this.props;
-
         console.log(path[path.length - 1]);
         return (
             <div>
-                {this.props.path.map(item => (
-                    <button
-                        key={id++}
-                        onClick={this.props.onBackClick.bind(null, item)}
-                    >
-                        {returnName(originalData, path[path.length - 1])}
-                    </button>
-                ))}
+                {this.props.path.map(item => {
+                    return (
+                        <button
+                            key={id++}
+                            onClick={this.props.onBackClick.bind(null, item)}
+                        >
+                            {returnName(originalData, item)}
+                        </button>
+                    );
+                })}
             </div>
         );
     }
@@ -28,4 +29,4 @@ class BackButton extends Component {
 
 export default BackButton;
 
-//
+

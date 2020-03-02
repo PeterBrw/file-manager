@@ -22,15 +22,21 @@ class ListDirectory extends Component {
         const { path, name } = this.state;
         if (pathInput !== path[path.length - 1]) {
             let newPath = path.slice(0, path.indexOf(pathInput) + 1);
+            let newName = name.slice(
+                0,
+                name.indexOf(returnName(originalData, pathInput)) + 1
+            );
             this.setState({
                 data: returnChildren(originalData, newPath[newPath.length - 1]),
-                path: newPath
+                path: newPath,
+                name: newName
             });
             console.log(`
                 path: ${path}
                 newPath: ${newPath}
                 pathInput: ${pathInput}
                 name: ${name}
+                newName: ${newName}
             `);
         }
     };
@@ -51,7 +57,6 @@ class ListDirectory extends Component {
 
     render() {
         let { data, path, name } = this.state;
-
         return (
             <div className="list-directory">
                 {path.length > 0 ? (

@@ -11,14 +11,14 @@ class BackButton extends Component {
         let { path, name } = this.props;
         console.log(path[path.length - 1]);
         return (
-            <div>
+            <div className="back-button">
                 {this.props.path.map(item => {
                     return (
                         <button
                             key={id++}
                             onClick={this.props.onBackClick.bind(null, item)}
                         >
-                            {returnName(originalData, item)}
+                            <b>{returnName(originalData, item)}</b>
                         </button>
                     );
                 })}

@@ -2,7 +2,6 @@ import React from "react";
 import "./icon.style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCoffee,
     faFolder,
     faFileAlt
 } from "@fortawesome/free-solid-svg-icons";

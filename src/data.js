@@ -7,7 +7,7 @@ var data = [
             {
                 id: 11,
                 name: "Child 1",
-                type: "file",
+                type: "folder",
                 children: [
                     { id: 55, name: "Child 5", type: "file", children: [] }
                 ]

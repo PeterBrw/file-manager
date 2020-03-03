@@ -7,6 +7,7 @@ import { Directory } from "../directory/directory.component";
 import BackButton from "../back-button/back-button.component";
 
 import { returnChildren, returnName } from "../../return-children";
+import { MyContext } from "../../context/display.context";
 
 class ListDirectory extends Component {
     constructor(props) {
@@ -58,23 +59,32 @@ class ListDirectory extends Component {
     render() {
         let { data, path, name } = this.state;
         return (
-            <div className="list-directory">
-                {path.length > 0 ? (
-                    <BackButton
-                        onBackClick={this.onBackClick}
-                        path={path}
-                        name={name}
-                    />
-                ) : null}
-                {data.map(item => (
-                    <Directory
-                        key={item.id}
-                        onClick={this.onClick}
-                        {...item}
-                        path={path}
-                    />
-                ))}
-            </div>
+            <MyContext.Consumer>
+                {({ row }) => {
+                    let classNameList = row
+                        ? "list-directory-row"
+                        : "list-directory-column";
+                    return (
+                        <div className={classNameList}>
+                            {path.length > 0 ? (
+                                <BackButton
+                                    onBackClick={this.onBackClick}
+                                    path={path}
+                                    name={name}
+                                />
+                            ) : null}
+                            {data.map(item => (
+                                <Directory
+                                    key={item.id}
+                                    onClick={this.onClick}
+                                    {...item}
+                                    path={path}
+                                />
+                            ))}
+                        </div>
+                    );
+                }}
+            </MyContext.Consumer>
         );
     }
 }

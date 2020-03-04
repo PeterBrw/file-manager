@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./list-directory.styles.css";
 
 import originalData from "../../data";
@@ -9,29 +9,21 @@ import BackButton from "../back-button/back-button.component";
 import { returnChildren, returnName } from "../../return-children";
 import { MyContext } from "../../context/display.context";
 
-class ListDirectory extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: originalData,
-            path: ["root"],
-            name: ["root"]
-        };
-    }
+function ListDirectory() {
+    const [data, setData] = useState(originalData);
+    const [path, setPath] = useState(["root"]);
+    const [name, setName] = useState(["root"]);
 
-    onBackClick = pathInput => {
-        const { path, name } = this.state;
+    const onBackClick = pathInput => {
         if (pathInput !== path[path.length - 1]) {
             let newPath = path.slice(0, path.indexOf(pathInput) + 1);
             let newName = name.slice(
                 0,
                 name.indexOf(returnName(originalData, pathInput)) + 1
             );
-            this.setState({
-                data: returnChildren(originalData, newPath[newPath.length - 1]),
-                path: newPath,
-                name: newName
-            });
+            setData(returnChildren(originalData, newPath[newPath.length - 1]));
+            setPath(newPath);
+            setName(newName);
             console.log(`
                 path: ${path}
                 newPath: ${newPath}
@@ -42,13 +34,10 @@ class ListDirectory extends Component {
         }
     };
 
-    onClick = id => {
-        const { path, name } = this.state;
-        this.setState({
-            data: returnChildren(originalData, id),
-            path: [...path, id],
-            name: [...name, returnName(originalData, id)]
-        });
+    const onClick = id => {
+        setData(returnChildren(originalData, id));
+        setPath([...path, id]);
+        setName([...name, returnName(originalData, id)]);
         console.log(`
             path: ${path}
             name: ${name} 
@@ -56,37 +45,34 @@ class ListDirectory extends Component {
         `);
     };
 
-    render() {
-        let { data, path, name } = this.state;
-        return (
-            <MyContext.Consumer>
-                {({ row }) => {
-                    let classNameList = row
-                        ? "list-directory-row"
-                        : "list-directory-column";
-                    return (
-                        <div className={classNameList}>
-                            {path.length > 0 ? (
-                                <BackButton
-                                    onBackClick={this.onBackClick}
-                                    path={path}
-                                    name={name}
-                                />
-                            ) : null}
-                            {data.map(item => (
-                                <Directory
-                                    key={item.id}
-                                    onClick={this.onClick}
-                                    {...item}
-                                    path={path}
-                                />
-                            ))}
-                        </div>
-                    );
-                }}
-            </MyContext.Consumer>
-        );
-    }
+    return (
+        <MyContext.Consumer>
+            {({ row }) => {
+                let classNameList = row
+                    ? "list-directory-row"
+                    : "list-directory-column";
+                return (
+                    <div className={classNameList}>
+                        {path.length > 0 ? (
+                            <BackButton
+                                onBackClick={onBackClick}
+                                path={path}
+                                name={name}
+                            />
+                        ) : null}
+                        {data.map(item => (
+                            <Directory
+                                key={item.id}
+                                onClick={onClick}
+                                {...item}
+                                path={path}
+                            />
+                        ))}
+                    </div>
+                );
+            }}
+        </MyContext.Consumer>
+    );
 }
 
 export default ListDirectory;

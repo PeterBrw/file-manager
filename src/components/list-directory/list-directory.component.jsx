@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./list-directory.styles.css";
 
 import originalData from "../../data";
@@ -45,33 +45,23 @@ function ListDirectory() {
         `);
     };
 
+    const row = useContext(MyContext);
+    let classNameList = row ? "list-directory-row" : "list-directory-column";
+
     return (
-        <MyContext.Consumer>
-            {({ row }) => {
-                let classNameList = row
-                    ? "list-directory-row"
-                    : "list-directory-column";
-                return (
-                    <div className={classNameList}>
-                        {path.length > 0 ? (
-                            <BackButton
-                                onBackClick={onBackClick}
-                                path={path}
-                                name={name}
-                            />
-                        ) : null}
-                        {data.map(item => (
-                            <Directory
-                                key={item.id}
-                                onClick={onClick}
-                                {...item}
-                                path={path}
-                            />
-                        ))}
-                    </div>
-                );
-            }}
-        </MyContext.Consumer>
+        <div className={classNameList}>
+            {path.length > 0 ? (
+                <BackButton onBackClick={onBackClick} path={path} name={name} />
+            ) : null}
+            {data.map(item => (
+                <Directory
+                    key={item.id}
+                    onClick={onClick}
+                    {...item}
+                    path={path}
+                />
+            ))}
+        </div>
     );
 }
 

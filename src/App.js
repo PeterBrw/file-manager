@@ -14,7 +14,7 @@ function App() {
 
     return (
         <div className="App">
-            <MyContext.Provider value={view}>
+            <MyContext.Provider value={view.row}>
                 <ListDirectory />
             </MyContext.Provider>
             <button onClick={onClickContext}>Change Me!</button>
@@ -23,7 +23,3 @@ function App() {
 }
 
 export default App;
-
-// const onClick = () => {
-//     display = { row: !display.row };
-// };

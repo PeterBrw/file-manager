@@ -11,38 +11,21 @@ import { MyContext } from "../../context/display.context";
 
 function ListDirectory() {
     const [data, setData] = useState(originalData);
-    const [path, setPath] = useState(["root"]);
-    const [name, setName] = useState(["root"]);
+    const [path, setPath] = useState([{ id: "root", name: "root" }]);
 
     const onBackClick = pathInput => {
-        if (pathInput !== path[path.length - 1]) {
+        if (pathInput !== path[path.length - 1].id) {
             let newPath = path.slice(0, path.indexOf(pathInput) + 1);
-            let newName = name.slice(
-                0,
-                name.indexOf(returnName(originalData, pathInput)) + 1
+            setData(
+                returnChildren(originalData, newPath[newPath.length - 1].id)
             );
-            setData(returnChildren(originalData, newPath[newPath.length - 1]));
             setPath(newPath);
-            setName(newName);
-            console.log(`
-                path: ${path}
-                newPath: ${newPath}
-                pathInput: ${pathInput}
-                name: ${name}
-                newName: ${newName}
-            `);
         }
     };
 
     const onClick = id => {
         setData(returnChildren(originalData, id));
-        setPath([...path, id]);
-        setName([...name, returnName(originalData, id)]);
-        console.log(`
-            path: ${path}
-            name: ${name} 
-            id:   ${id}       
-        `);
+        setPath([...path, { id, name: returnName(originalData, id) }]);
     };
 
     const row = useContext(MyContext);
@@ -51,7 +34,7 @@ function ListDirectory() {
     return (
         <div className={classNameList}>
             {path.length > 0 ? (
-                <BackButton onBackClick={onBackClick} path={path} name={name} />
+                <BackButton onBackClick={onBackClick} path={path} />
             ) : null}
             {data.map(item => (
                 <Directory

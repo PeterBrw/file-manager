@@ -5,6 +5,8 @@ import { MyContext } from "../../context/display.context";
 import BackButton from "../back-button/back-button.component";
 import { Directory } from "../directory/directory.component";
 
+import AddData from "../add-data/add-data.component";
+
 function CustomList(props) {
     const row = useContext(MyContext);
     let classNameList = row ? "list-directory-row" : "list-directory-column";
@@ -22,6 +24,11 @@ function CustomList(props) {
                     path={props.path}
                 />
             ))}
+            <AddData
+                handleSubmit={props.handleSubmit}
+                setChildren={props.setChildren}
+                path={props.path}
+            />
         </div>
     );
 }

@@ -50,9 +50,8 @@ function ListDirectory() {
 
     return (
         <div>
-            {path.length > 0 ? (
-                <BackButton onBackClick={onBackClick} path={path} />
-            ) : null}
+            <BackButton onBackClick={onBackClick} path={path} />
+
             <CustomList
                 onClick={onClick}
                 onBackClick={onBackClick}

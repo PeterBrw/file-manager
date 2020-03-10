@@ -1,25 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-function AddData({ handleSubmit, setChildren, path }) {
-    const [folderName, setFolderName] = useState({ value: "" });
-
-    const onChange = e => {
-        setFolderName(e.target.value);
-    };
-
+function AddData({ handleSubmit, handleChange, path, word }) {
     return (
         <div>
             <label>
                 Name:
-                <input
-                    type="text"
-                    value={folderName.value}
-                    onChange={onChange}
-                />
+                <input type="text" onChange={handleChange} value={word} />
             </label>
-            <button onClick={handleSubmit.bind(null, folderName)}>
-                Submit
-            </button>
+            <button onClick={handleSubmit}>Submit</button>
         </div>
     );
 }

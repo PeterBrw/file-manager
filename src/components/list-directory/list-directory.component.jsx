@@ -1,19 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./list-directory.styles.css";
 
 import originalData from "../../data";
 
-import { Directory } from "../directory/directory.component";
 import BackButton from "../back-button/back-button.component";
+import AddData from "../add-data/add-data.component";
 
-import { returnChildren, returnName } from "../../return-children";
-import { MyContext } from "../../context/display.context";
+import { returnChildren, returnName, returnKids } from "../../return-children";
 
-import  CustomList from "../custom-list/custom-list.component";
+import CustomList from "../custom-list/custom-list.component";
 
-function ListDirectory(WrapperComponent) {
+function ListDirectory() {
     const [data, setData] = useState(originalData);
     const [path, setPath] = useState([{ id: "root", name: "root" }]);
+    const [word, setWord] = useState("");
 
     const onBackClick = pathInput => {
         if (pathInput !== path[path.length - 1].id) {
@@ -30,27 +30,42 @@ function ListDirectory(WrapperComponent) {
         setPath([...path, { id, name: returnName(originalData, id) }]);
     };
 
-    // const row = useContext(MyContext);
-    // let classNameList = row ? "list-directory-row" : "list-directory-column";
+    const handleSubmit = () => {
+        let children = returnKids(originalData, path[path.length - 1].id);
+        console.log(path[path.length - 1].id, children);
+        children.push({
+            id: Math.floor(Math.random() * (1000 - 100 + 1) + 100),
+            name: word,
+            type: "folder",
+            children: []
+        });
+        setData(children);
+        console.log(children);
+        setWord("");
+    };
 
-    // return (
-    //     <div className={classNameList}>
-    //         {path.length > 0 ? (
-    //             <BackButton onBackClick={onBackClick} path={path} />
-    //         ) : null}
-    //         {data.map(item => (
-    //             <Directory
-    //                 key={item.id}
-    //                 onClick={onClick}
-    //                 {...item}
-    //                 path={path}
-    //             />
-    //         ))}
-    //     </div>
-    // );
+    const handleChange = e => {
+        setWord(e.target.value);
+    };
+
     return (
         <div>
-            <CustomList onClick={onClick} onBackClick={onBackClick} data={data} path={path}/>
+            {path.length > 0 ? (
+                <BackButton onBackClick={onBackClick} path={path} />
+            ) : null}
+            <CustomList
+                onClick={onClick}
+                onBackClick={onBackClick}
+                data={data}
+                path={path}
+                handleSubmit={handleSubmit}
+            />
+            <AddData
+                handleSubmit={handleSubmit}
+                path={path}
+                handleChange={handleChange}
+                word={word}
+            />
         </div>
     );
 }

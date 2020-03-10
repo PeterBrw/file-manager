@@ -2,10 +2,7 @@ import React, { useContext } from "react";
 
 import { MyContext } from "../../context/display.context";
 
-import BackButton from "../back-button/back-button.component";
 import { Directory } from "../directory/directory.component";
-
-import AddData from "../add-data/add-data.component";
 
 function CustomList(props) {
     const row = useContext(MyContext);
@@ -13,9 +10,6 @@ function CustomList(props) {
 
     return (
         <div className={classNameList}>
-            {props.path.length > 0 ? (
-                <BackButton onBackClick={props.onBackClick} path={props.path} />
-            ) : null}
             {props.data.map(item => (
                 <Directory
                     key={item.id}
@@ -24,11 +18,6 @@ function CustomList(props) {
                     path={props.path}
                 />
             ))}
-            <AddData
-                handleSubmit={props.handleSubmit}
-                setChildren={props.setChildren}
-                path={props.path}
-            />
         </div>
     );
 }

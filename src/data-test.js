@@ -52,7 +52,7 @@ const returnChildren = (data, id) => {
 
     for (let i = 0; i < data.length; i++) {
         if (data[i].id === id) {
-            return data[i];
+            return data[i].children;
         }
 
         if (data[i].children.length > 0) {
@@ -66,4 +66,4 @@ const returnChildren = (data, id) => {
     return null;
 };
 
-console.log(returnChildren(data, 11).name);
+console.log(returnChildren(data, 2));

@@ -5,7 +5,7 @@ import { Icon } from "../icon/icon.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export const Directory = ({ id, name, type, onClick, path }) => {
+export const Directory = ({ id, name, type, onClick, path, itemDelete }) => {
     const show = () => {
         console.log(id);
     };
@@ -18,7 +18,7 @@ export const Directory = ({ id, name, type, onClick, path }) => {
             </div>
             <FontAwesomeIcon
                 className="delete-button"
-                onClick={show}
+                onClick={itemDelete.bind(null, id)}
                 icon={faTrash}
             />
         </div>

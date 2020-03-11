@@ -6,7 +6,7 @@ import originalData from "../../data";
 import BackButton from "../back-button/back-button.component";
 import AddData from "../add-data/add-data.component";
 
-import { returnChildren, returnName } from "../../return-children";
+import { returnChildren, returnName, deleteItem } from "../../return-children";
 
 import CustomList from "../custom-list/custom-list.component";
 
@@ -50,6 +50,10 @@ function ListDirectory() {
         setWord(e.target.value);
     };
 
+    const itemDelete = id => {
+        setData(deleteItem(data, id));
+    };
+
     return (
         <div>
             <BackButton onBackClick={onBackClick} path={path} />
@@ -60,6 +64,7 @@ function ListDirectory() {
                 data={data}
                 path={path}
                 handleSubmit={handleSubmit}
+                itemDelete={itemDelete}
             />
             <AddData
                 handleSubmit={handleSubmit}

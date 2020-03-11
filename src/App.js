@@ -9,7 +9,7 @@ function App() {
     const [view, setView] = useState(display);
 
     const onClickContext = () => {
-        setView({row: !view.row})
+        setView({ row: !view.row });
     };
 
     // const ListDirectoryWithData = withDate(ListDirectory, {data});

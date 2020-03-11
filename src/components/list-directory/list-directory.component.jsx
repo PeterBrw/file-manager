@@ -6,7 +6,7 @@ import originalData from "../../data";
 import BackButton from "../back-button/back-button.component";
 import AddData from "../add-data/add-data.component";
 
-import { returnChildren, returnName, returnKids } from "../../return-children";
+import { returnChildren, returnName } from "../../return-children";
 
 import CustomList from "../custom-list/custom-list.component";
 
@@ -31,17 +31,19 @@ function ListDirectory() {
     };
 
     const handleSubmit = () => {
-        let children = returnKids(originalData, path[path.length - 1].id);
-        console.log(path[path.length - 1].id, children);
-        children.push({
-            id: Math.floor(Math.random() * (1000 - 100 + 1) + 100),
-            name: word,
-            type: "folder",
-            children: []
-        });
-        setData(children);
-        console.log(children);
-        setWord("");
+        let children = returnChildren(originalData, path[path.length - 1].id);
+
+        if (word !== "") {
+            children.push({
+                id: Math.floor(Math.random() * (1000 - 100 + 1) + 100),
+                name: word,
+                type: "folder",
+                children: []
+            });
+            setData(children);
+            console.log(children);
+            setWord("");
+        }
     };
 
     const handleChange = e => {

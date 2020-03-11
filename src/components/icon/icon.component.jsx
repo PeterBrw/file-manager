@@ -3,7 +3,7 @@ import "./icon.style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFolder,
-    faFileAlt
+    faFileAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Icon = ({ type }) => {

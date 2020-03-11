@@ -16,7 +16,7 @@ function CustomList(props) {
                     onClick={props.onClick}
                     {...item}
                     path={props.path}
-                />
+                /> 
             ))}
         </div>
     );

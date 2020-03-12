@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./list-directory.styles.css";
 
-import originalData from "../../data";
+import importData from "../../data";
 
 import BackButton from "../back-button/back-button.component";
 import AddData from "../add-data/add-data.component";
@@ -10,8 +10,10 @@ import { returnChildren, returnName, deleteItem } from "../../return-children";
 
 import CustomList from "../custom-list/custom-list.component";
 
+let originalData = importData;
+
 function ListDirectory() {
-    const [data, setData] = useState(originalData);
+    const [data, setData] = useState(importData);
     const [path, setPath] = useState([{ id: "root", name: "root" }]);
     const [word, setWord] = useState("");
 
@@ -52,11 +54,13 @@ function ListDirectory() {
 
     const itemDelete = id => {
         setData(deleteItem(data, id));
+        originalData = deleteItem(originalData, id);
+        console.log(originalData);
     };
 
     return (
         <div>
-            <BackButton onBackClick={onBackClick} path={path} />
+            <BackButton onBackClick={onBackClick} path={path} originalData={originalData}/>
 
             <CustomList
                 onClick={onClick}

@@ -6,10 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const Directory = ({ id, name, type, onClick, path, itemDelete }) => {
-    const show = () => {
-        console.log(id);
-    };
-
     return (
         <div className="directory">
             <div className="left" onClick={onClick.bind(null, id)}>

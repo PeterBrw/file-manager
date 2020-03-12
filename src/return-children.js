@@ -41,27 +41,11 @@ export const returnName = (data, id) => {
 };
 
 export const deleteItem = (data, id) => {
-    let first = false;
-
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].id === id) {
-            first = true;
+    return data.reduce((arr, item) => {
+        if (item.id !== id) {
+            if (item.children) item.children = deleteItem(item.children, id);
+            arr.push(item);
         }
-    }
-
-    if (first) {
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].id === id) {
-                return data.filter(item => item.id !== id);
-            }
-        }
-    } else {
-        data.forEach(function(item) {
-            item.children = item.children.filter(function(children) {
-                return children.id !== id;
-            });
-        });
-
-        return data;
-    }
+        return arr;
+    }, []);
 };

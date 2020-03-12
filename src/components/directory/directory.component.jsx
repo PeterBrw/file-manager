@@ -1,11 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "./directory.component.jsx.css";
 import { Icon } from "../icon/icon.component";
+import Modal from "react-responsive-modal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
-export const Directory = ({ id, name, type, onClick, path, itemDelete }) => {
+export const Directory = ({
+    id,
+    name,
+    type,
+    onClick,
+    path,
+    itemDelete,
+    changeFileName,
+    originalData
+}) => {
+    const [modal, setModal] = useState({ open: false });
+    const [inputValue, setInputValue] = useState("");
+
+    console.log(originalData);
+
+    const onOpenModal = () => {
+        setModal({ open: true });
+        console.log(modal);
+    };
+
+    const onCloseModal = () => {
+        setModal({ open: false });
+    };
+
+    const handleChange = e => {
+        setInputValue(e.target.value);
+    };
+
+    const onButtonClick = () => {
+        changeFileName(originalData, id, inputValue);
+        console.log(inputValue);
+        setInputValue("");
+    };
+
     return (
         <div className="directory">
             <div className="left" onClick={onClick.bind(null, id)}>
@@ -17,6 +51,23 @@ export const Directory = ({ id, name, type, onClick, path, itemDelete }) => {
                 onClick={itemDelete.bind(null, id)}
                 icon={faTrash}
             />
+            <FontAwesomeIcon icon={faEdit} onClick={onOpenModal} />
+            <Modal open={modal.open} onClose={onCloseModal} little>
+                <p>Edit file name</p>
+                <input
+                    type="text"
+                    placeholder="Edit name"
+                    onChange={handleChange}
+                />
+                <button
+                    onClick={() => {
+                        onCloseModal();
+                        onButtonClick();
+                    }}
+                >
+                    Change
+                </button>
+            </Modal>
         </div>
     );
 };

@@ -17,6 +17,8 @@ function CustomList(props) {
                     {...item}
                     path={props.path}
                     itemDelete={props.itemDelete}
+                    changeFileName={props.changeFileName}
+                    originalData={props.originalData}
                 /> 
             ))}
         </div>

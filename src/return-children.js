@@ -49,3 +49,25 @@ export const deleteItem = (data, id) => {
         return arr;
     }, []);
 };
+
+export const changeName = (data, id, newName) => {
+    if (id === "root" || id === null) {
+        return "root";
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].id === id) {
+            data[i].name = newName;
+            return data;
+        }
+
+        if (data[i].children.length > 0) {
+            let found = changeName(data[i].children, id, newName);
+            if (found) {
+                return data;
+            }
+        }
+    }
+
+    return null;
+};

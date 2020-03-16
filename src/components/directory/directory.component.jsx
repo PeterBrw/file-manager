@@ -19,11 +19,8 @@ export const Directory = ({
     const [modal, setModal] = useState({ open: false });
     const [inputValue, setInputValue] = useState("");
 
-    console.log(originalData);
-
     const onOpenModal = () => {
         setModal({ open: true });
-        console.log(modal);
     };
 
     const onCloseModal = () => {
@@ -36,8 +33,7 @@ export const Directory = ({
 
     const onButtonClick = () => {
         changeFileName(originalData, id, inputValue);
-        console.log(inputValue);
-        setInputValue("");
+        // setInputValue("");
     };
 
     return (
@@ -61,8 +57,8 @@ export const Directory = ({
                 />
                 <button
                     onClick={() => {
-                        onCloseModal();
                         onButtonClick();
+                        onCloseModal();
                     }}
                 >
                     Change

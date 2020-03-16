@@ -19,7 +19,7 @@ function CustomList(props) {
                     itemDelete={props.itemDelete}
                     changeFileName={props.changeFileName}
                     originalData={props.originalData}
-                /> 
+                />
             ))}
         </div>
     );

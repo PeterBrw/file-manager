@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./list-directory.styles.css";
 
 import importData from "../../data";
@@ -19,7 +19,7 @@ function ListDirectory() {
     const [data, setData] = useState(importData);
     const [path, setPath] = useState([{ id: "root", name: "root" }]);
     const [word, setWord] = useState("");
-    const [originalData, setOriginalData] = useState(importData);
+    const [originalData, setOriginalData] = useState(data);
 
     const onBackClick = pathInput => {
         if (pathInput !== path[path.length - 1].id) {
@@ -38,7 +38,6 @@ function ListDirectory() {
 
     const handleSubmit = () => {
         let children = returnChildren(originalData, path[path.length - 1].id);
-
         if (word !== "") {
             children.push({
                 id: Math.floor(Math.random() * (1000 - 100 + 1) + 100),
@@ -59,12 +58,22 @@ function ListDirectory() {
     const itemDelete = id => {
         setData(deleteItem(data, id));
         setOriginalData(deleteItem(originalData, id));
-        setData(originalData);
     };
 
-    const changeFileName = (data, id, newName) => {
-        setOriginalData(changeName(data, id, newName));
+    const changeFileName = (inputdata, id, newName) => {
+        let newData = changeName(
+            JSON.parse(JSON.stringify(inputdata)),
+            id,
+            newName
+        );
+        setOriginalData(newData);
+        setData(returnChildren(newData, path[path.length - 1].id));
     };
+
+    useEffect(() => {
+        setOriginalData(originalData);
+        setData(data);
+    }, [originalData, data]);
 
     return (
         <div>

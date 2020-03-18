@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./directory.component.jsx.css";
 import { Icon } from "../icon/icon.component";
 import Modal from "react-responsive-modal";
+import { returnName } from "../../return-children";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -11,13 +12,12 @@ export const Directory = ({
     name,
     type,
     onClick,
-    path,
     itemDelete,
     changeFileName,
     originalData
 }) => {
     const [modal, setModal] = useState({ open: false });
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState(returnName(originalData, id));
 
     const onOpenModal = () => {
         setModal({ open: true });
@@ -33,10 +33,10 @@ export const Directory = ({
 
     const onButtonClick = () => {
         changeFileName(originalData, id, inputValue);
-        // setInputValue("");
     };
-
+    
     return (
+        
         <div className="directory">
             <div className="left" onClick={onClick.bind(null, id)}>
                 <Icon className="icon" type={type} />
@@ -52,7 +52,7 @@ export const Directory = ({
                 <p>Edit file name</p>
                 <input
                     type="text"
-                    placeholder="Edit name"
+                    value={inputValue}
                     onChange={handleChange}
                 />
                 <button

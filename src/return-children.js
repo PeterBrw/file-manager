@@ -71,3 +71,27 @@ export const changeName = (data, id, newName) => {
 
     return null;
 };
+
+export const addItem = (data, id, word) => {
+    if (id === "root" || id === null) {
+        data.push({
+            id: Math.floor(Math.random() * (1000 - 100 + 1) + 100),
+            name: word,
+            type: "folder",
+            children: []
+        });
+    } else {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id === id) {
+                data[i].children.push({
+                    id: Math.floor(Math.random() * (1000 - 100 + 1) + 100),
+                    name: word,
+                    type: "folder",
+                    children: []
+                });
+            } else if (data[i].children.length > 0) {
+                addItem(data[i].children, id, word);
+            }
+        }
+    }
+};

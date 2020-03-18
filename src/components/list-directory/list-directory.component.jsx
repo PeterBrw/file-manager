@@ -46,7 +46,6 @@ function ListDirectory() {
                 children: []
             });
             setData(children);
-            console.log(children);
             setWord("");
         }
     };
@@ -85,10 +84,8 @@ function ListDirectory() {
 
             <CustomList
                 onClick={onClick}
-                onBackClick={onBackClick}
                 data={data}
                 path={path}
-                handleSubmit={handleSubmit}
                 itemDelete={itemDelete}
                 changeFileName={changeFileName}
                 originalData={originalData}

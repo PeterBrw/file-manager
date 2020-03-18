@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import "./back-button.styles.css";
 
 import { returnName } from "../../return-children";
-// import originalData from "../../data";
 
-let id = 0;
+// let id = 0;              // without originalData just use the name from path
 
 class BackButton extends Component {
     render() {
@@ -14,7 +13,9 @@ class BackButton extends Component {
                 {path.map(item => {
                     return (
                         <button
-                            key={id++}
+                            key={Math.floor(
+                                Math.random() * (10000 - 1000 + 1) + 1000
+                            )}
                             onClick={this.props.onBackClick.bind(null, item)}
                         >
                             <b>{returnName(originalData, item.id)}</b>

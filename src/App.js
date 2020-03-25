@@ -10,13 +10,11 @@ function App() {
 
     const onClickContext = () => {
         setView({ row: !view.row });
-    };
-
-    // const ListDirectoryWithData = withDate(ListDirectory, {data});
+    };  
 
     return (
         <div className="App">
-            <MyContext.Provider value={view.row}> 
+            <MyContext.Provider value={view.row}>
                 <ListDirectory />
             </MyContext.Provider>
             <button onClick={onClickContext}>Change Me!</button>

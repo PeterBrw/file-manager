@@ -9,7 +9,6 @@ function AddData({ path, originalData, setOriginalData, setData }) {
 
     const handleSubmit = () => {
         if (word !== "") {
-            console.log(anotherData);
             setOriginalData(
                 addItem(anotherData, path[path.length - 1].id, word)
             );
@@ -19,7 +18,6 @@ function AddData({ path, originalData, setOriginalData, setData }) {
             );
             setData(children);
             setWord("");
-            console.log(anotherData);
         }
     };
 

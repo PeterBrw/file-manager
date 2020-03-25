@@ -1,30 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-// import { returnChildren, addItem } from "../../return-children";
+import { returnChildren, addItem } from "../../return-children";
 
-function AddData({ path, handleChange,handleSubmit, word }) {
-    // const [word, setWord] = useState("");
+function AddData({ path, originalData, setOriginalData, setData }) {
+    const [word, setWord] = useState("");
 
-    // // const handleSubmit = () => {
-    // //     if (word !== "") {
-    // //         let addedItem = addItem(
-    // //             originalData,
-    // //             path[path.length - 1].id,
-    // //             word
-    // //         );
-    // //         setOriginalData(addedItem);
-    // //         console.log(originalData);
-    // //         // console.log(returnChildren(originalData, path[path.length - 1].id));
-    // //         // setData(returnChildren(originalData, path[path.length - 1].id));
-    // //         setData(returnChildren(originalData, path[path.length - 1].id));
-    // //         setWord("");
-    // //     }
-    // // };
+    let anotherData = [...originalData];
 
-    // // const handleChange = e => {
-    // //     // maybe word should be as well inside of the other component
-    // //     setWord(e.target.value);
-    // // };
+    const handleSubmit = () => {
+        if (word !== "") {
+            console.log(anotherData);
+            setOriginalData(
+                addItem(anotherData, path[path.length - 1].id, word)
+            );
+            const children = returnChildren(
+                anotherData,
+                path[path.length - 1].id
+            );
+            setData(children);
+            setWord("");
+            console.log(anotherData);
+        }
+    };
+
+    const handleChange = e => {
+        setWord(e.target.value);
+    };
 
     return (
         <div>

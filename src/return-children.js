@@ -94,4 +94,6 @@ export const addItem = (data, id, word) => {
             }
         }
     }
+
+    return data;
 };

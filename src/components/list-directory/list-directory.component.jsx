@@ -18,7 +18,6 @@ import CustomList from "../custom-list/custom-list.component";
 function ListDirectory() {
     const [data, setData] = useState(importData);
     const [path, setPath] = useState([{ id: "root", name: "root" }]);
-    const [word, setWord] = useState("");
     const [originalData, setOriginalData] = useState(data);
 
     const onBackClick = pathInput => {
@@ -34,24 +33,6 @@ function ListDirectory() {
     const onClick = id => {
         setData(returnChildren(originalData, id));
         setPath([...path, { id, name: returnName(originalData, id) }]);
-    };
-
-    const handleSubmit = () => {
-        let children = returnChildren(originalData, path[path.length - 1].id);
-        if (word !== "") {
-            children.push({
-                id: Math.floor(Math.random() * (1000 - 100 + 1) + 100),
-                name: word,
-                type: "folder",
-                children: []
-            });
-            setData(children);
-            setWord("");
-        }
-    };
-
-    const handleChange = e => {
-        setWord(e.target.value);
     };
 
     const itemDelete = id => {
@@ -91,10 +72,10 @@ function ListDirectory() {
                 originalData={originalData}
             />
             <AddData
-                handleSubmit={handleSubmit}
                 path={path}
-                handleChange={handleChange}
-                word={word}
+                originalData={originalData}
+                setOriginalData={setOriginalData}
+                setData={setData}
             />
         </div>
     );

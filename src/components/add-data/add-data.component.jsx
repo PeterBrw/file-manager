@@ -1,22 +1,36 @@
 import React, { useState } from "react";
 
-import { returnChildren, addItem } from "../../return-children";
+import { returnChildren } from "../../return-children";
 
-function AddData({ path, originalData, setOriginalData, setData }) {
+import { addItem } from "../../redux/actions/manipulateAction";
+import { addItemData } from "../../redux/actions/dataAction";
+
+import { useSelector, useDispatch } from "react-redux";
+
+function AddData() {
     const [word, setWord] = useState("");
 
-    let anotherData = [...originalData];
+    const dispatch = useDispatch();
+    const manipulateData = useSelector(store => store.manipulateReducer);
+    const path = useSelector(store => store.pathReducer);
+
+    const anotherData = [...manipulateData];
 
     const handleSubmit = () => {
         if (word !== "") {
-            setOriginalData(
-                addItem(anotherData, path[path.length - 1].id, word)
+            dispatch(
+                addItem({
+                    data: anotherData,
+                    id: path[path.length - 1].id,
+                    word: word
+                })
             );
             const children = returnChildren(
                 anotherData,
                 path[path.length - 1].id
             );
-            setData(children);
+            console.log(children);
+            dispatch(addItemData(children));
             setWord("");
         }
     };

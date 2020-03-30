@@ -10,7 +10,7 @@ function App() {
 
     const onClickContext = () => {
         setView({ row: !view.row });
-    };  
+    };
 
     return (
         <div className="App">

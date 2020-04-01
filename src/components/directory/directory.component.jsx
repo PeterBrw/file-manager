@@ -9,24 +9,15 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { deleteItemEl } from "../../index";
+import { onClick, editName, deleteItemEl } from "../../index";
 
-import { onClick, editName } from "../../index";
-
-export const Directory = ({
-    id,
-    name,
-    type
-}) => {
+export const Directory = ({ id, name, type }) => {
     const dispatch = useDispatch();
 
     const data = useSelector(store => store.dataReducer);
- 
 
     const [modal, setModal] = useState({ open: false });
-    const [inputValue, setInputValue] = useState(
-        returnName(data, id)
-    );
+    const [inputValue, setInputValue] = useState(returnName(data, id));
 
     const onOpenModal = () => {
         setModal({ open: true });

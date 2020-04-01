@@ -5,6 +5,7 @@ import { MyContext } from "../../context/display.context";
 import { Directory } from "../directory/directory.component";
 
 import { useSelector } from "react-redux";
+
 import { returnChildren } from "../../return-children";
 
 function CustomList(props) {
@@ -25,12 +26,7 @@ function CustomList(props) {
             {children.map(item => (
                 <Directory
                     key={item.id}
-                    onClick={props.onClick}
                     {...item}
-                    path={props.path}
-                    itemDelete={props.itemDelete}
-                    changeFileName={props.changeFileName}
-                    setChildren={setChildren}
                 />
             ))}
         </div>

@@ -7,15 +7,13 @@ import * as serviceWorker from "./serviceWorker";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 import { dataReducer } from "./redux/reducers/dataReducer";
 import { pathReducer } from "./redux/reducers/pathReducer";
 
-import { deleteItemData } from "./redux/actions/dataAction";
-import { nameChange } from "./redux/actions/dataAction";
-
+import { deleteItemData, nameChange } from "./redux/actions/dataAction";
 import { onClickPath, onBackClickPath } from "./redux/actions/pathAction";
-
-import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
     dataReducer,
@@ -37,7 +35,6 @@ export const onBackClick = (pathInput, obj) => {
 export const deleteItemEl = (id, data) => {
     return dispatch => {
         dispatch(deleteItemData({ data: data, id: id }));
-        console.log(id);
     };
 };
 
@@ -46,7 +43,6 @@ export const editName = (inputData, id, newName) => {
         dispatch(
             nameChange({ inputData: inputData, id: id, newName: newName })
         );
-        console.log("malasi");
     };
 };
 

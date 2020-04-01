@@ -12,7 +12,7 @@ function AddData() {
     const path = useSelector(store => store.pathReducer);
 
     const anotherData = [...manipulateData];
-    console.log(anotherData);
+
     const handleSubmit = () => {
         if (word !== "") {
             dispatch(

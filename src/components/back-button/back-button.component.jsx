@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { onBackClick } from "../../index";
 
 const BackButton = () => {
-    const manipulateData = useSelector(store => store.dataReducer);
+    const data = useSelector(store => store.dataReducer);
     const dispatch = useDispatch();
     const path = useSelector(store => store.pathReducer);
     return (
@@ -22,13 +22,13 @@ const BackButton = () => {
                         onClick={() =>
                             dispatch(
                                 onBackClick(item.id, {
-                                    data: manipulateData,
+                                    data: data,
                                     id: path[path.length - 1].id
                                 })
                             )
                         }
                     >
-                        <b>{returnName(manipulateData, item.id)}</b>
+                        <b>{returnName(data, item.id)}</b>
                     </button>
                 );
             })}

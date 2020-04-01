@@ -9,28 +9,21 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { dataReducer } from "./redux/reducers/dataReducer";
 import { pathReducer } from "./redux/reducers/pathReducer";
-import { manipulateReducer } from "./redux/reducers/manipulateReducer";
+
 import { deleteItemData } from "./redux/actions/dataAction";
-import {
-    deleteItemManipulate,
-    nameChange
-} from "./redux/actions/manipulateAction";
+import { nameChange } from "./redux/actions/dataAction";
 
 import { onClickPath, onBackClickPath } from "./redux/actions/pathAction";
-import { onClickData } from "./redux/actions/dataAction.js";
-// import { onBackClickPath } from "./redux/actions/pathAction";
-import { onBackClickData } from "./redux/actions/dataAction";
+
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
     dataReducer,
-    pathReducer,
-    manipulateReducer
+    pathReducer
 });
 
 export const onClick = id => {
     return dispatch => {
-        dispatch(onClickData(id));
         dispatch(onClickPath(id));
     };
 };
@@ -38,26 +31,22 @@ export const onClick = id => {
 export const onBackClick = (pathInput, obj) => {
     return dispatch => {
         dispatch(onBackClickPath(pathInput));
-        console.log("before dispatch", pathInput);
-        console.log("path:", store.getState().pathReducer);
-        dispatch(onBackClickData(obj));
     };
 };
 
-export const deleteItemEl = (id, data, anotherData) => {
+export const deleteItemEl = (id, data) => {
     return dispatch => {
         dispatch(deleteItemData({ data: data, id: id }));
-        dispatch(deleteItemManipulate({ data: anotherData, id: id }));
+        console.log(id);
     };
 };
 
-export const editName = (inputData, id, newName, pathId) => {
+export const editName = (inputData, id, newName) => {
     return dispatch => {
         dispatch(
             nameChange({ inputData: inputData, id: id, newName: newName })
         );
-        console.log(inputData, id, newName, pathId);
-        // dispatch(onBackClickData({ inputData: inputData, pathId: pathId }));
+        console.log("malasi");
     };
 };
 

@@ -19,15 +19,6 @@ export const pathReducer = (state = initialState, action) => {
         }
         case ON_BACK_CLICK_PATH: {
             const newPath = [...state];
-            // console.log(newPath);
-            // console.log(newPath.findIndex(item => item.id === action.payload));
-            // console.log(
-            //     "sliced:",
-            //     newPath.slice(
-            //         0,
-            //         newPath.findIndex(item => item.id === action.payload) + 1
-            //     )
-            // );
             return newPath.slice(
                 0,
                 newPath.findIndex(item => item.id === action.payload) + 1

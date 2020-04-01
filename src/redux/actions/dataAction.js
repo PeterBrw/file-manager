@@ -25,3 +25,10 @@ export const deleteItemData = payload => {
         payload
     };
 };
+
+export const nameChange = payload => {
+    return {
+        type: "NAME_CHANGE",
+        payload
+    };
+};

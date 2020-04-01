@@ -13,15 +13,19 @@ import { deleteItemEl } from "../../index";
 
 import { onClick, editName } from "../../index";
 
-export const Directory = ({ id, name, type, itemDelete, changeFileName }) => {
+export const Directory = ({
+    id,
+    name,
+    type
+}) => {
     const dispatch = useDispatch();
 
     const data = useSelector(store => store.dataReducer);
-    const manipulateData = useSelector(store => store.manipulateReducer);
+ 
 
     const [modal, setModal] = useState({ open: false });
     const [inputValue, setInputValue] = useState(
-        returnName(manipulateData, id)
+        returnName(data, id)
     );
 
     const onOpenModal = () => {
@@ -36,12 +40,8 @@ export const Directory = ({ id, name, type, itemDelete, changeFileName }) => {
         setInputValue(e.target.value);
     };
 
-    const path = useSelector(store => store.pathReducer);
-    
     const onButtonClick = () => {
-        dispatch(
-            editName(manipulateData, id, inputValue, path[path.length - 1].id)
-        );
+        dispatch(editName(data, id, inputValue));
     };
 
     return (
@@ -52,7 +52,7 @@ export const Directory = ({ id, name, type, itemDelete, changeFileName }) => {
             </div>
             <FontAwesomeIcon
                 className="delete-button"
-                onClick={() => dispatch(deleteItemEl(id, data, manipulateData))}
+                onClick={() => dispatch(deleteItemEl(id, data))}
                 icon={faTrash}
             />
             <FontAwesomeIcon icon={faEdit} onClick={onOpenModal} />

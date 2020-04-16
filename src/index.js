@@ -26,7 +26,7 @@ export const onClick = id => {
     };
 };
 
-export const onBackClick = (pathInput, obj) => {
+export const onBackClick = pathInput => {
     return dispatch => {
         dispatch(onBackClickPath(pathInput));
     };

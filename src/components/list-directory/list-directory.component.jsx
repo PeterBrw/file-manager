@@ -5,6 +5,8 @@ import BackButton from "../back-button/back-button.component";
 import AddData from "../add-data/add-data.component";
 import CustomList from "../custom-list/custom-list.component";
 
+import "../../firebase/firebase.utils";
+
 function ListDirectory() {
     return (
         <div>

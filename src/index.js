@@ -45,8 +45,8 @@ export const onClick = (id) => {
     };
 };
 
-export const onBackClick = (pathInput) => {
-    return (dispatch) => {
+export const onBackClick = pathInput => {
+    return dispatch => {
         dispatch(onBackClickPath(pathInput));
     };
 };

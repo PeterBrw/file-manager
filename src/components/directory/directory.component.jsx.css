@@ -8,6 +8,10 @@
 .directory:hover .fa-edit {
     visibility: visible;
 }
+.directory:hover .delete-button,
+.directory:hover .fa-edit {
+    visibility: visible;
+}
 
 .left {
     display: flex;

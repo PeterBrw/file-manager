@@ -1,11 +1,17 @@
 import importedData from "../../data";
-import { changeName, deleteItem, addItem } from "../../return-children";
+import {
+    changeName,
+    deleteItem,
+    addItem,
+    dragAndDrop,
+} from "../../return-children";
 
 // const ON_CLICK_DATA = "ON_CLICK_DATA";
 // const ON_BACK_CLICK_DATA = "ON_BACK_CLICK_DATA";
 const ADD_ITEM_DATA = "ADD_ITEM_DATA";
 const DELETE_ITEM_DATA = "DELETE_ITEM_DATA";
 const NAME_CHANGE = "NAME_CHANGE";
+const DRAG_AND_DROP = "DRAG_AND_DROP";
 
 const initialState = importedData;
 
@@ -32,6 +38,12 @@ export const dataReducer = (state = initialState, action) => {
                 action.payload.newName
             );
             return newData;
+        case DRAG_AND_DROP:
+            return dragAndDrop(
+                action.payload.data,
+                action.payload.idFrom,
+                action.payload.idTo
+            );
         default:
             return state;
     }

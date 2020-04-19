@@ -11,35 +11,54 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import { dataReducer } from "./redux/reducers/dataReducer";
 import { pathReducer } from "./redux/reducers/pathReducer";
+import { idFromReducer } from "./redux/reducers/idFromReducer";
 
-import { deleteItemData, nameChange } from "./redux/actions/dataAction";
+import {
+    deleteItemData,
+    nameChange,
+    dragAndDropAction,
+} from "./redux/actions/dataAction";
 import { onClickPath, onBackClickPath } from "./redux/actions/pathAction";
+import { addId } from "./redux/actions/idAction";
 
 const rootReducer = combineReducers({
     dataReducer,
-    pathReducer
+    pathReducer,
+    idFromReducer,
 });
 
-export const onClick = id => {
-    return dispatch => {
+export const dragAndDrop = (data, idFrom, idTo) => {
+    return (dispatch) => {
+        dispatch(dragAndDropAction({ data: data, idFrom: idFrom, idTo: idTo }));
+    };
+};
+
+export const addIdFrom = (id) => {
+    return (dispatch) => {
+        dispatch(addId(id));
+    };
+};
+
+export const onClick = (id) => {
+    return (dispatch) => {
         dispatch(onClickPath(id));
     };
 };
 
-export const onBackClick = (pathInput, obj) => {
-    return dispatch => {
+export const onBackClick = (pathInput) => {
+    return (dispatch) => {
         dispatch(onBackClickPath(pathInput));
     };
 };
 
 export const deleteItemEl = (id, data) => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(deleteItemData({ data: data, id: id }));
     };
 };
 
 export const editName = (inputData, id, newName) => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(
             nameChange({ inputData: inputData, id: id, newName: newName })
         );

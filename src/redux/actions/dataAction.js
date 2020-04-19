@@ -1,34 +1,41 @@
-export const onClickData = payload => {
+export const onClickData = (payload) => {
     return {
         type: "ON_CLICK_DATA",
-        payload
+        payload,
     };
 };
 
-export const onBackClickData = payload => {
+export const onBackClickData = (payload) => {
     return {
         type: "ON_BACK_CLICK_DATA",
-        payload
+        payload,
     };
 };
 
-export const addItemData = payload => {
+export const addItemData = (payload) => {
     return {
         type: "ADD_ITEM_DATA",
-        payload
+        payload,
     };
 };
 
-export const deleteItemData = payload => {
+export const deleteItemData = (payload) => {
     return {
         type: "DELETE_ITEM_DATA",
-        payload
+        payload,
     };
 };
 
-export const nameChange = payload => {
+export const nameChange = (payload) => {
     return {
         type: "NAME_CHANGE",
-        payload
+        payload,
+    };
+};
+
+export const dragAndDropAction = (payload) => {
+    return {
+        type: "DRAG_AND_DROP",
+        payload,
     };
 };

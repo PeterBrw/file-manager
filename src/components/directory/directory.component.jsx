@@ -9,12 +9,20 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { onClick, editName, deleteItemEl } from "../../index";
+import {
+    onClick,
+    editName,
+    deleteItemEl,
+    addIdFrom,
+    dragAndDrop,
+} from "../../index";
 
 export const Directory = ({ id, name, type }) => {
     const dispatch = useDispatch();
 
-    const data = useSelector(store => store.dataReducer);
+    const data = useSelector((store) => store.dataReducer);
+
+    const idFrom = useSelector((store) => store.idFromReducer);
 
     const [modal, setModal] = useState({ open: false });
     const [inputValue, setInputValue] = useState(returnName(data, id));
@@ -27,7 +35,7 @@ export const Directory = ({ id, name, type }) => {
         setModal({ open: false });
     };
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         setInputValue(e.target.value);
     };
 
@@ -35,11 +43,54 @@ export const Directory = ({ id, name, type }) => {
         dispatch(editName(data, id, inputValue));
     };
 
+    const dragStart = (e) => {
+        e.dataTransfer.setData("text/plain", e.target.id);
+        console.log(parseInt(e.target.id));
+        dispatch(addIdFrom(parseInt(e.target.id)));
+    };
+
+    const allowDrop = (e) => {
+        e.preventDefault();
+    };
+
+    const dragDrop = (e) => {
+        e.preventDefault();
+        console.log("finish", parseInt(e.target.id), idFrom[idFrom.length - 1]);
+        if (idFrom[idFrom.length - 1] === parseInt(e.target.id)) {
+            return;
+        }
+
+        dispatch(
+            dragAndDrop(data, idFrom[idFrom.length - 1], parseInt(e.target.id))
+        );
+    };
+
+    const dragEnter = (e) => {};
+
+    const displayStart = (e) => {
+        // let id = e.target.id;
+        // dispatch(onClick(parseInt(id)));
+    };
+
     return (
-        <div className="directory">
+        <div
+            className="directory"
+            onDrop={dragDrop}
+            onDragOver={allowDrop}
+            id={id}
+            onDragEnter={dragEnter}
+        >
             <div className="left" onClick={() => dispatch(onClick(id))}>
                 <Icon className="icon" type={type} />
-                <h1 className="header">{name}</h1>
+                <h1
+                    className="header"
+                    draggable="true"
+                    onDragStart={dragStart}
+                    id={id}
+                    onDrag={displayStart}
+                >
+                    {name}
+                </h1>
             </div>
             <FontAwesomeIcon
                 className="delete-button"

@@ -56,7 +56,11 @@ export const Directory = ({ id, name, type }) => {
     const dragDrop = (e) => {
         e.preventDefault();
         console.log("finish", parseInt(e.target.id), idFrom[idFrom.length - 1]);
-        if (idFrom[idFrom.length - 1] === parseInt(e.target.id)) {
+        if (
+            idFrom[idFrom.length - 1] === parseInt(e.target.id) ||
+            Number.isNaN(idFrom[idFrom.length - 1]) ||
+            Number.isNaN(parseInt(e.target.id))
+        ) {
             return;
         }
 

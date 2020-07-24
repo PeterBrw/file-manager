@@ -51,6 +51,7 @@ export const Directory = ({ id, name, type }) => {
 
     const allowDrop = (e) => {
         e.preventDefault();
+        console.log(e.target.id);
     };
 
     const dragDrop = (e) => {

@@ -8,12 +8,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { onBackClick } from "../../index";
 
 const BackButton = () => {
-    const data = useSelector(store => store.dataReducer);
+    const data = useSelector((store) => store.dataReducer);
     const dispatch = useDispatch();
-    const path = useSelector(store => store.pathReducer);
+    const path = useSelector((store) => store.pathReducer);
     return (
         <div className="back-button">
-            {path.map(item => {
+            {path.map((item) => {
+                console.log(item.id);
                 return (
                     <button
                         key={Math.floor(
@@ -21,10 +22,7 @@ const BackButton = () => {
                         )}
                         onClick={() =>
                             dispatch(
-                                onBackClick(item.id, {
-                                    data: data,
-                                    id: path[path.length - 1].id
-                                })
+                                onBackClick(item.id)
                             )
                         }
                     >
